@@ -1,49 +1,61 @@
-int led = 13;
+/*
+Programa que gera solos de arduino de acordo com o acorde enviado via serial...
+O sinal é gerado no pino 8 com a função tone().
+Conexões:
+pino GND -> GND do falante.
+pino 8   -> Positivo do falante.
+*/
+
 char valor_recebido = '0';
-int x = 20;
+bool onoff = false;
 
 void setup(){
   Serial.begin(9600);
-  pinMode(led, OUTPUT);
 }
 
 void loop(){
-  if(valor_recebido == '3'){
-    digitalWrite(led, HIGH);
-    delay(x);
-    digitalWrite(led, LOW);
-    delay(x);
- }
+    switch(valor_recebido){
+    case 'AMajor':
+        break;
+    case 'A#Major':
+        break;
+    case 'BMajor':
+        break;
+    case 'CMajor':
+        break;
+    case 'C#Major':
+        break;
+    case 'DMajor':
+        break;
+    case 'D#Major':
+        break;
+    case 'EMajor':
+        break;
+    case 'FMajor':
+        break;
+    case 'F#Major':
+        break;
+    case 'GMajor':
+        break;
+    case 'G#Major':
+        break;
+    case 'True':
+        break;
+    case 'False':
+        break;
+    default:
+        break;
+    }
+    delay(100);
 }
 
 void serialEvent (){
-  valor_recebido = Serial.read();
-
-  switch(valor_recebido){
-  case '1':
-    digitalWrite(led, HIGH);
-    Serial.println("Led no pino 13 ligado!");
-    break;
-  case '2':
-    digitalWrite(led, LOW);
-    Serial.println("Led no pino 13 desligado!");
-    break;
-  case '3':
-    Serial.println("Led no pino 13 itermitente!");
-    break;
-  case '4':
-    x += 20;
-    Serial.println("Menos Velocidade");
-    valor_recebido = '3';
-    break;
-  case '5':
-    if(x - 20 >= 0){
-      x -= 20;
+    while (Serial.available()) {
+        char inChar = (char)Serial.read();
+            valor_recebido += inChar;
     }
-    Serial.println("Mais velocidade");
-    valor_recebido = '3';
-    break;
-   default:
-     break;
-  }
+
+    if (valor_recebido == 'onoff') {
+        onoff = !onoff;
+    }
 }
