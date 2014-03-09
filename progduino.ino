@@ -6,8 +6,8 @@ pino GND -> GND do falante.
 pino 8   -> Positivo do falante.
 */
 
-char valor_recebido = '0';
-bool onoff = false;
+String valor_recebido = 'AMajor';
+boolean onoff = false;
 
 void setup(){
   Serial.begin(9600);
