@@ -6,7 +6,7 @@ pino GND -> GND do falante.
 pino 8   -> Positivo do falante.
 */
 
-String valor_recebido = 'AMajor';
+String valor_recebido = "AMajor";
 boolean onoff = false;
 
 void setup(){
@@ -15,33 +15,33 @@ void setup(){
 
 void loop(){
     switch(valor_recebido){
-    case 'AMajor':
+    case "AMajor":
         break;
-    case 'A#Major':
+    case "A#Major":
         break;
-    case 'BMajor':
+    case "BMajor":
         break;
-    case 'CMajor':
+    case "CMajor":
         break;
-    case 'C#Major':
+    case "C#Major":
         break;
-    case 'DMajor':
+    case "DMajor":
         break;
-    case 'D#Major':
+    case "D#Major":
         break;
-    case 'EMajor':
+    case "EMajor":
         break;
-    case 'FMajor':
+    case "FMajor":
         break;
-    case 'F#Major':
+    case "F#Major":
         break;
-    case 'GMajor':
+    case "GMajor":
         break;
-    case 'G#Major':
+    case "G#Major":
         break;
-    case 'True':
+    case "True":
         break;
-    case 'False':
+    case "False":
         break;
     default:
         break;
@@ -55,7 +55,7 @@ void serialEvent (){
             valor_recebido += inChar;
     }
 
-    if (valor_recebido == 'onoff') {
+    if (valor_recebido == "onoff") {
         onoff = !onoff;
     }
 }
