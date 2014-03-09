@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 #-*- encoding:utf-8 -*-
+import sys
 import gtk
 import pygtk
 pygtk.require('2.0')
@@ -11,12 +12,17 @@ baud_rate = 9600
 try:
     com = serial.Serial(port, baud_rate)
 except:
-    print 'Dispositivo não conectado'
+    print """
+====================================
+Dispositivo não conectado
+Conecte o arduino à porta serial...
+====================================
+"""
+    sys.exit(0)
+
 
 class Progduino:
     def __init__(self):
-
-
         self.janela = gtk.Window()
         self.janela.set_title("The Wakemanduino - 0.1")
         self.janela.set_position(gtk.WIN_POS_CENTER)
@@ -38,18 +44,17 @@ class Progduino:
         self.chords = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
         for chord in self.chords:
             self.chordChange.append_text(chord)
-
         self.chordChange.set_active(1)
 
         self.typeChordChange = gtk.combo_box_entry_new_text()
         self.typeChordChange.append_text('')
         self.boxChord.pack_start(self.typeChordChange)
 
-        self.typeChords = ['Major', 'Minor', 'Diminuto']
+        self.typeChords = ['Major', 'Minor']
         for typeChord in self.typeChords:
             self.typeChordChange.append_text(typeChord)
-
         self.typeChordChange.set_active(1)
+
         self.conteudo.pack_start(self.boxChord)
 
         #Box com outras configurações.
@@ -70,19 +75,16 @@ class Progduino:
         self.janela.show_all()
 
     def set_actual_chord(self):
-        data = str(self.chords[self.chordChange.get_active() - 1]) + ' ' + str(self.typeChords[self.typeChordChange.get_active() -1])
+        data = str(self.chords[self.chordChange.get_active() - 1]) + ' '+ str(self.typeChords[self.typeChordChange.get_active() -1])
         self.actualChord.set_label('Actual Chord: ' + data)
 
     def on_send_chord_clicked(self, *args):
-        data = str(self.chords[self.chordChange.get_active() - 1]) + ' ' + str(self.typeChords[self.typeChordChange.get_active() -1])
+        data = self.chords[self.chordChange.get_active() - 1] + self.typeChords[self.typeChordChange.get_active() -1]
         print data
-        self.set_actual_chord()
         self.send_data(data)
-
 
     def on_onoff_clicked(self, *args):
         self.onoff = not self.onoff
-
         self.send_data(self.onoff)
 
         if self.onoff:
@@ -91,8 +93,8 @@ class Progduino:
             self.btOnOff.set_label('off')
 
     def send_data(self, data):
-        # com.write(data)
-        print data
+        com.write(data)
+        self.set_actual_chord()
 
 if __name__ == '__main__':
     app = Progduino()
