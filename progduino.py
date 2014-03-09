@@ -84,7 +84,7 @@ class Progduino:
 
     def on_onoff_clicked(self, *args):
         self.onoff = not self.onoff
-        self.send_data(str(self.onoff))
+        self.send_data('onoff')
 
         if self.onoff:
             self.btOnOff.set_label('on')
