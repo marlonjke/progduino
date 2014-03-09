@@ -80,12 +80,11 @@ class Progduino:
 
     def on_send_chord_clicked(self, *args):
         data = self.chords[self.chordChange.get_active() - 1] + self.typeChords[self.typeChordChange.get_active() -1]
-        print data
         self.send_data(data)
 
     def on_onoff_clicked(self, *args):
         self.onoff = not self.onoff
-        self.send_data(self.onoff)
+        self.send_data(str(self.onoff))
 
         if self.onoff:
             self.btOnOff.set_label('on')
@@ -93,6 +92,7 @@ class Progduino:
             self.btOnOff.set_label('off')
 
     def send_data(self, data):
+        print data
         com.write(data)
         self.set_actual_chord()
 
