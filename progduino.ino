@@ -14,6 +14,12 @@ void setup(){
 }
 
 void loop(){
+    playSong(valor_recebido);
+    delay(100);
+}
+
+void playSong(String chord){
+
     switch(valor_recebido){
     case "AMajor":
         break;
@@ -46,7 +52,7 @@ void loop(){
     default:
         break;
     }
-    delay(100);
+    tone(8, random(), random(100, 1000));
 }
 
 void serialEvent (){
